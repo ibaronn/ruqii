@@ -24,10 +24,12 @@ export async function GET(req: NextRequest) {
     );
   }
 
+  // الطلبات الجديدة تُحفظ بهاتف موحّد الصيغة؛ نطابق أيضًا الصيغة المكتوبة حرفيًا لدعم الطلبات القديمة
+  const rawPhone = (req.nextUrl.searchParams.get("phone") ?? "").trim();
   const order = await prisma.order.findFirst({
     where: {
       orderNumber: parsed.data.orderNumber.toUpperCase(),
-      customerPhone: parsed.data.phone,
+      customerPhone: { in: [parsed.data.phone, rawPhone] },
     },
     include: { items: { orderBy: { id: "asc" } } },
   });
