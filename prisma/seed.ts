@@ -235,48 +235,57 @@ const products: Array<{
 ];
 
 async function main() {
-  const env = process.env as Record<string, string>;
+  const env = process.env as Record<string, string | undefined>;
+  const isProd = env.NODE_ENV === "production" || !!env.VERCEL;
 
+  const adminUsername = env.ADMIN_USERNAME ?? "ruqi";
+  let adminPassword = env.ADMIN_PASSWORD;
+  if (!adminPassword) {
+    if (isProd) {
+      throw new Error(
+        "ADMIN_PASSWORD غير مضبوط. اضبطه في متغيرات البيئة قبل النشر."
+      );
+    }
+    adminPassword = "dev-only-change-me";
+    console.warn("⚠ ADMIN_PASSWORD غير مضبوط — تم استخدام كلمة مرور للتطوير المحلي فقط.");
+  }
+
+  // الأدمن: يُنشأ إن لم يوجد ولا يُعدَّل أبدًا (لا نكتب فوق كلمة مرور موجودة)
   const admin = await prisma.adminUser.upsert({
-    where: { username: env.ADMIN_USERNAME ?? "ruqi" },
+    where: { username: adminUsername },
     update: {},
     create: {
-      username: env.ADMIN_USERNAME ?? "ruqi",
-      passwordHash: await bcrypt.hash(env.ADMIN_PASSWORD ?? "Ruqi2026!Admin", 12),
+      username: adminUsername,
+      passwordHash: await bcrypt.hash(adminPassword, 12),
       name: env.ADMIN_NAME ?? "رُقي",
     },
   });
   console.log("Admin:", admin.username);
 
+  // بيانات العرض تُزرع مرة واحدة فقط على قاعدة فارغة،
+  // حتى لا تُستبدل تعديلات لوحة التحكم (أسعار/مخزون/وصف) عند كل نشر
+  const [categoryCount, productCount] = await Promise.all([
+    prisma.category.count(),
+    prisma.product.count(),
+  ]);
+  if (categoryCount > 0 || productCount > 0) {
+    console.log("البيانات موجودة — تخطي زرع التصنيفات والمنتجات ✓");
+    return;
+  }
+
   for (const cat of categories) {
-    await prisma.category.upsert({
-      where: { slug: cat.slug },
-      update: cat,
-      create: cat,
-    });
+    await prisma.category.create({ data: cat });
   }
   console.log("Categories:", categories.length);
 
-  let productCount = 0;
+  let created = 0;
   for (const p of products) {
     const category = await prisma.category.findUnique({
       where: { slug: p.categorySlug },
     });
     if (!category) continue;
-    await prisma.product.upsert({
-      where: { slug: p.slug },
-      update: {
-        nameAr: p.nameAr,
-        nameEn: p.nameEn,
-        description: p.description,
-        priceCents: p.priceCents,
-        compareAtCents: p.compareAtCents,
-        stock: p.stock,
-        isFeatured: p.isFeatured,
-        categoryId: category.id,
-        isActive: true,
-      },
-      create: {
+    await prisma.product.create({
+      data: {
         nameAr: p.nameAr,
         nameEn: p.nameEn,
         slug: p.slug,
@@ -289,9 +298,9 @@ async function main() {
         isActive: true,
       },
     });
-    productCount++;
+    created++;
   }
-  console.log("Products:", productCount);
+  console.log("Products:", created);
   console.log("Done ✓");
 }
 
