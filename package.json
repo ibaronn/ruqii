@@ -13,9 +13,10 @@
     "postinstall": "prisma generate",
     "db:push": "prisma db push",
     "db:seed": "tsx prisma/seed.ts",
-    "db:push:prod": "prisma db push --schema prisma/schema.postgres.prisma --accept-data-loss",
+    "db:push:prod": "prisma db push --schema prisma/schema.postgres.prisma",
     "db:seed:prod": "tsx prisma/seed.ts",
-    "vercel-build": "prisma generate --schema prisma/schema.postgres.prisma && prisma db push --schema prisma/schema.postgres.prisma --accept-data-loss && tsx prisma/seed.ts && next build"
+    "admin:reset": "tsx prisma/reset-admin.ts",
+    "vercel-build": "prisma generate --schema prisma/schema.postgres.prisma && prisma db push --schema prisma/schema.postgres.prisma && tsx prisma/seed.ts && next build"
   },
   "prisma": {
     "seed": "tsx prisma/seed.ts"
