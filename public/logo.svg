@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" fill="none">
+  <defs>
+    <g id="half">
+      <path
+        d="M 200 116
+           C 186 108 176 118 170 131
+           C 162 148 156 168 156 191
+           C 156 215 164 240 176 259
+           C 186 275 194 291 199 307
+           C 200 315 200 321 200 328 Z"
+        fill="#0a0a0a"/>
+      <path
+        d="M 152 176
+           C 130 156 106 150 88 158
+           C 76 164 70 176 78 187
+           C 86 197 106 198 122 192
+           C 130 189 138 186 144 184
+           C 149 181 152 180 152 176 Z"
+        fill="#0a0a0a"/>
+      <path
+        d="M 194 114 L 176 96 L 158 80 L 140 66 L 126 54"
+        stroke="#0a0a0a"
+        stroke-width="11"
+        stroke-linecap="round"
+        stroke-linejoin="round"/>
+      <path
+        d="M 158 80 L 164 58"
+        stroke="#0a0a0a"
+        stroke-width="11"
+        stroke-linecap="round"/>
+      <path
+        d="M 140 66 L 146 44"
+        stroke="#0a0a0a"
+        stroke-width="11"
+        stroke-linecap="round"/>
+      <path
+        d="M 158 80 L 148 94"
+        stroke="#0a0a0a"
+        stroke-width="11"
+        stroke-linecap="round"/>
+    </g>
+  </defs>
+  <use href="#half"/>
+  <use href="#half" transform="translate(400,0) scale(-1,1)"/>
+  <ellipse cx="200" cy="323" rx="9" ry="6" fill="#ffffff"/>
+</svg>

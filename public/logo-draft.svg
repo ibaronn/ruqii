@@ -1,0 +1,57 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" fill="none">
+  <defs>
+    <g id="stag">
+      <!-- Right side primitives, mirrored for symmetry -->
+      <g id="half">
+        <!-- Antler -->
+        <path d="M104 76
+                 C100 62 96 52 92 42
+                 C86 28 80 22 72 20
+                 C62 18 52 22 46 30
+                 C40 38 38 48 40 58
+                 C42 68 46 74 52 78
+                 C58 82 66 84 74 84
+                 L88 86 Z"
+              fill="#0a0a0a"/>
+        <!-- Antler outer tine -->
+        <path d="M92 42
+                 C88 34 80 26 70 22
+                 C60 18 50 22 44 30
+                 C52 26 62 24 70 28
+                 C78 32 86 40 92 48 Z"
+              fill="#0a0a0a"/>
+        <!-- Ear -->
+        <path d="M78 92
+                 C60 88 44 78 34 72
+                 C30 88 32 104 38 116
+                 C44 110 56 100 72 96 C76 95 78 94 78 92 Z"
+              fill="#0a0a0a"/>
+        <!-- Skull + muzzle right side -->
+        <path d="M104 16
+                 C100 22 96 34 96 46
+                 C96 58 98 66 102 72
+                 C104 76 106 80 108 86
+                 C116 88 128 92 138 100
+                 C150 110 156 126 154 142
+                 C152 156 144 168 132 177
+                 C118 186 102 189 88 186
+                 C76 183 66 176 60 166
+                 C54 158 52 146 58 138
+                 C66 126 84 116 96 108 Z"
+              fill="#0a0a0a"/>
+        <!-- Nose tip highlight (cut toward inner of muzzle) -->
+        <path d="M100 30
+                 C98 24 99 20 102 18
+                 C105 20 106 26 104 32
+                 C102 34 100 32 100 30 Z"
+              fill="#ffffff"/>
+      </g>
+      <g id="full">
+        <use href="#half"/>
+        <use href="#half" transform="translate(400,0) scale(-1,1)"/>
+      </g>
+    </g>
+  </defs>
+  <rect width="400" height="400" cx="0" fill="#ffffff"/>
+  <use href="#full"/>
+</svg>

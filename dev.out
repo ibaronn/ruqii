@@ -1,0 +1,284 @@
+
+> ruqi-store@1.0.0 dev
+> next dev
+
+  ▲ Next.js 14.2.35
+  - Local:        http://localhost:3000
+  - Environments: .env
+
+ ✓ Starting...
+ ✓ Ready in 2.8s
+ ○ Compiling / ...
+ ✓ Compiled / in 5.3s (644 modules)
+ ✓ Compiled in 557ms (308 modules)
+ GET / 200 in 102ms
+ GET / 200 in 52ms
+ ✓ Compiled /products in 396ms (639 modules)
+ GET /products 200 in 581ms
+ ✓ Compiled /admin/login in 258ms (653 modules)
+ GET /admin/login 200 in 330ms
+ GET / 200 in 79ms
+ ✓ Compiled in 688ms (318 modules)
+ ✓ Compiled in 576ms (318 modules)
+ ✓ Compiled in 587ms (318 modules)
+ ✓ Compiled in 518ms (318 modules)
+ ✓ Compiled in 185ms (318 modules)
+ ✓ Compiled in 375ms (318 modules)
+ ✓ Compiled in 178ms (318 modules)
+ ✓ Compiled in 168ms (318 modules)
+ ✓ Compiled in 156ms (318 modules)
+ ✓ Compiled in 227ms (318 modules)
+ ✓ Compiled in 178ms (318 modules)
+ ✓ Compiled in 178ms (318 modules)
+ ✓ Compiled in 172ms (318 modules)
+ ✓ Compiled in 225ms (318 modules)
+ ✓ Compiled in 260ms (318 modules)
+ ✓ Compiled in 245ms (318 modules)
+ ✓ Compiled in 167ms (318 modules)
+ ✓ Compiled in 172ms (318 modules)
+ ✓ Compiled in 215ms (318 modules)
+ ✓ Compiled in 233ms (318 modules)
+ ✓ Compiled in 191ms (318 modules)
+ ✓ Compiled in 202ms (318 modules)
+ ✓ Compiled in 161ms (318 modules)
+ ✓ Compiled in 148ms (318 modules)
+ ✓ Compiled in 157ms (318 modules)
+ ✓ Compiled in 287ms (318 modules)
+ ✓ Compiled in 174ms (318 modules)
+ ✓ Compiled in 163ms (318 modules)
+ ✓ Compiled in 181ms (318 modules)
+ ✓ Compiled in 288ms (318 modules)
+ ✓ Compiled in 196ms (318 modules)
+ ✓ Compiled in 155ms (318 modules)
+ ✓ Compiled in 157ms (318 modules)
+ ✓ Compiled in 180ms (318 modules)
+ ✓ Compiled in 168ms (318 modules)
+ ✓ Compiled in 171ms (318 modules)
+ ✓ Compiled in 139ms (318 modules)
+ ✓ Compiled in 149ms (318 modules)
+ ✓ Compiled in 172ms (318 modules)
+ ⨯ ./src/components/store/footer.tsx
+Error: 
+  [31mx[0m Unexpected token `footer`. Expected jsx identifier
+    ,-[[36;1;4mC:\ruqi\src\components\store\footer.tsx[0m:26:1]
+ [2m26[0m | export function Footer() {
+ [2m27[0m |   if (usePathname().startsWith("/admin")) return null;
+ [2m28[0m |   return (
+ [2m29[0m |     <footer className="mt-20 px-3 pb-3 sm:px-5 sm:pb-5">
+    : [31;1m     ^^^^^^[0m
+ [2m30[0m |       <div className="glass mx-auto w-full max-w-shell overflow-hidden">
+ [2m31[0m |         <div className="shell grid grid-cols-1 gap-10 py-14 sm:grid-cols-2 lg:grid-cols-4">
+ [2m32[0m |         <div className="sm:col-span-2 lg:col-span-2">
+    `----
+
+Caused by:
+    Syntax Error
+
+Import trace for requested module:
+./src/components/store/footer.tsx
+ ✓ Compiled in 230ms (318 modules)
+ ✓ Compiled in 239ms (318 modules)
+ ✓ Compiled in 188ms (318 modules)
+ ✓ Compiled in 197ms (318 modules)
+ ✓ Compiled in 226ms (318 modules)
+ ✓ Compiled in 180ms (318 modules)
+ ✓ Compiled in 218ms (318 modules)
+ ✓ Compiled in 172ms (318 modules)
+ ✓ Compiled in 232ms (318 modules)
+ ✓ Compiled in 191ms (318 modules)
+ ✓ Compiled in 180ms (318 modules)
+ ✓ Compiled in 202ms (318 modules)
+ ✓ Compiled in 266ms (318 modules)
+ ✓ Compiled in 185ms (318 modules)
+ ✓ Compiled in 160ms (318 modules)
+ ✓ Compiled in 168ms (318 modules)
+ ✓ Compiled in 197ms (318 modules)
+ ✓ Compiled in 219ms (318 modules)
+ ✓ Compiled in 168ms (318 modules)
+ ✓ Compiled in 200ms (318 modules)
+ ✓ Compiled in 243ms (318 modules)
+ ✓ Compiled in 330ms (318 modules)
+ ✓ Compiled in 187ms (318 modules)
+ ✓ Compiled in 239ms (318 modules)
+ ✓ Compiled in 183ms (318 modules)
+ ✓ Compiled in 249ms (318 modules)
+ ✓ Compiled in 172ms (318 modules)
+ ✓ Compiled in 183ms (318 modules)
+ ✓ Compiled in 166ms (318 modules)
+ ✓ Compiled in 222ms (318 modules)
+ ✓ Compiled in 229ms (318 modules)
+ ✓ Compiled in 167ms (318 modules)
+ ✓ Compiled in 173ms (318 modules)
+ ✓ Compiled in 178ms (318 modules)
+ ✓ Compiled in 187ms (318 modules)
+ ✓ Compiled in 167ms (318 modules)
+ ✓ Compiled in 176ms (318 modules)
+ ✓ Compiled in 160ms (318 modules)
+ ✓ Compiled in 235ms (318 modules)
+ ✓ Compiled in 150ms (318 modules)
+ ✓ Compiled in 155ms (318 modules)
+ ✓ Compiled in 198ms (318 modules)
+ ✓ Compiled in 217ms (318 modules)
+ ✓ Compiled in 163ms (318 modules)
+ ✓ Compiled in 148ms (318 modules)
+ ✓ Compiled in 183ms (318 modules)
+ ✓ Compiled in 173ms (318 modules)
+ ✓ Compiled in 148ms (318 modules)
+ ✓ Compiled in 152ms (318 modules)
+ ✓ Compiled in 135ms (318 modules)
+ ✓ Compiled in 158ms (318 modules)
+ ✓ Compiled in 186ms (318 modules)
+ ✓ Compiled in 178ms (318 modules)
+ ✓ Compiled in 159ms (318 modules)
+ ✓ Compiled in 164ms (318 modules)
+ ✓ Compiled in 156ms (318 modules)
+ ✓ Compiled in 216ms (318 modules)
+ ✓ Compiled in 180ms (318 modules)
+ ✓ Compiled in 206ms (318 modules)
+ ✓ Compiled in 153ms (318 modules)
+ ✓ Compiled in 229ms (318 modules)
+ ✓ Compiled in 161ms (318 modules)
+ ✓ Compiled in 160ms (318 modules)
+ ✓ Compiled in 154ms (318 modules)
+ ✓ Compiled in 209ms (318 modules)
+ ✓ Compiled in 186ms (318 modules)
+ ✓ Compiled in 224ms (318 modules)
+ ✓ Compiled in 155ms (318 modules)
+ ✓ Compiled in 222ms (318 modules)
+ ✓ Compiled in 162ms (318 modules)
+ ✓ Compiled in 182ms (318 modules)
+ ✓ Compiled in 157ms (318 modules)
+ ✓ Compiled in 207ms (318 modules)
+ ✓ Compiled in 153ms (318 modules)
+ ✓ Compiled in 151ms (318 modules)
+ ✓ Compiled in 174ms (318 modules)
+ ✓ Compiled in 206ms (318 modules)
+ ✓ Compiled in 151ms (318 modules)
+ ✓ Compiled in 145ms (318 modules)
+ ✓ Compiled in 172ms (318 modules)
+ ✓ Compiled in 165ms (318 modules)
+ ✓ Compiled in 183ms (318 modules)
+ ✓ Compiled in 139ms (318 modules)
+ ✓ Compiled in 157ms (318 modules)
+ ✓ Compiled in 162ms (318 modules)
+ ✓ Compiled in 190ms (318 modules)
+ ✓ Compiled in 155ms (318 modules)
+ ✓ Compiled in 146ms (318 modules)
+ ✓ Compiled in 186ms (318 modules)
+ ✓ Compiled in 141ms (318 modules)
+ ✓ Compiled in 226ms (318 modules)
+ ✓ Compiled in 180ms (318 modules)
+ ✓ Compiled in 157ms (318 modules)
+ ✓ Compiled in 150ms (318 modules)
+ ✓ Compiled in 190ms (318 modules)
+ ✓ Compiled in 167ms (318 modules)
+ ✓ Compiled in 177ms (318 modules)
+ ✓ Compiled in 155ms (318 modules)
+ ✓ Compiled in 172ms (318 modules)
+ ✓ Compiled in 152ms (318 modules)
+ ✓ Compiled in 227ms (318 modules)
+ ✓ Compiled in 165ms (318 modules)
+ ✓ Compiled in 175ms (318 modules)
+ ✓ Compiled in 135ms (318 modules)
+ ✓ Compiled in 193ms (318 modules)
+ ✓ Compiled in 159ms (318 modules)
+ ✓ Compiled in 164ms (318 modules)
+ ✓ Compiled in 156ms (318 modules)
+ ✓ Compiled in 146ms (318 modules)
+ ✓ Compiled in 194ms (318 modules)
+ ✓ Compiled in 158ms (318 modules)
+ ✓ Compiled / in 314ms (327 modules)
+ ⨯ TypeError: __webpack_modules__[moduleId] is not a function
+    at Object.__webpack_require__ [as require] (C:\ruqi\.next\server\webpack-runtime.js:33:42)
+    at JSON.parse (<anonymous>)
+digest: "4253487507"
+TypeError: __webpack_modules__[moduleId] is not a function
+    at Object.__webpack_require__ [as require] (C:\ruqi\.next\server\webpack-runtime.js:33:42)
+    at require (C:\ruqi\node_modules\next\dist\compiled\next-server\app-page.runtime.dev.js:40:20064)
+    at C:\ruqi\node_modules\next\dist\compiled\next-server\app-page.runtime.dev.js:35:108376
+    at ea (C:\ruqi\node_modules\next\dist\compiled\next-server\app-page.runtime.dev.js:35:108583)
+    at C:\ruqi\node_modules\next\dist\compiled\next-server\app-page.runtime.dev.js:35:110813
+    at Object._fromJSON (C:\ruqi\node_modules\next\dist\compiled\next-server\app-page.runtime.dev.js:35:111370)
+    at JSON.parse (<anonymous>)
+    at ec (C:\ruqi\node_modules\next\dist\compiled\next-server\app-page.runtime.dev.js:35:109078)
+    at eo (C:\ruqi\node_modules\next\dist\compiled\next-server\app-page.runtime.dev.js:35:108123)
+    at C:\ruqi\node_modules\next\dist\compiled\next-server\app-page.runtime.dev.js:35:115291
+    at C:\ruqi\node_modules\next\dist\compiled\next-server\app-page.runtime.dev.js:35:115308
+    at C:\ruqi\node_modules\next\dist\compiled\next-server\app-page.runtime.dev.js:35:115341
+    at C:\ruqi\node_modules\next\dist\compiled\next-server\app-page.runtime.dev.js:35:115358
+    at t (C:\ruqi\node_modules\next\dist\compiled\next-server\app-page.runtime.dev.js:35:115581)
+ ⨯ TypeError: __webpack_modules__[moduleId] is not a function
+    at Object.__webpack_require__ [as require] (C:\ruqi\.next\server\webpack-runtime.js:33:42)
+    at require (C:\ruqi\node_modules\next\dist\compiled\next-server\app-page.runtime.dev.js:40:20064)
+    at C:\ruqi\node_modules\next\dist\compiled\next-server\app-page.runtime.dev.js:35:108376
+    at ea (C:\ruqi\node_modules\next\dist\compiled\next-server\app-page.runtime.dev.js:35:108583)
+    at C:\ruqi\node_modules\next\dist\compiled\next-server\app-page.runtime.dev.js:35:110813
+    at Object._fromJSON (C:\ruqi\node_modules\next\dist\compiled\next-server\app-page.runtime.dev.js:35:111370)
+    at JSON.parse (<anonymous>)
+    at ec (C:\ruqi\node_modules\next\dist\compiled\next-server\app-page.runtime.dev.js:35:109078)
+    at eo (C:\ruqi\node_modules\next\dist\compiled\next-server\app-page.runtime.dev.js:35:108123)
+    at C:\ruqi\node_modules\next\dist\compiled\next-server\app-page.runtime.dev.js:35:115291
+    at C:\ruqi\node_modules\next\dist\compiled\next-server\app-page.runtime.dev.js:35:115308
+    at C:\ruqi\node_modules\next\dist\compiled\next-server\app-page.runtime.dev.js:35:115341
+    at C:\ruqi\node_modules\next\dist\compiled\next-server\app-page.runtime.dev.js:35:115358
+    at t (C:\ruqi\node_modules\next\dist\compiled\next-server\app-page.runtime.dev.js:35:115581) {
+  page: '/'
+}
+ ○ Compiling /_error ...
+Watchpack Error (initial scan): Error: EINVAL: invalid argument, lstat 'C:\System Volume Information'
+Watchpack Error (initial scan): Error: EINVAL: invalid argument, lstat 'C:\pagefile.sys'
+Watchpack Error (initial scan): Error: EINVAL: invalid argument, lstat 'C:\swapfile.sys'
+ ✓ Compiled /_error in 1435ms (857 modules)
+ GET / 500 in 2128ms
+Watchpack Error (initial scan): Error: EINVAL: invalid argument, lstat 'C:\System Volume Information'
+Watchpack Error (initial scan): Error: EINVAL: invalid argument, lstat 'C:\pagefile.sys'
+Watchpack Error (initial scan): Error: EINVAL: invalid argument, lstat 'C:\swapfile.sys'
+ ✓ Compiled /products in 210ms (380 modules)
+ GET /products 200 in 401ms
+ ✓ Compiled /cart in 387ms (881 modules)
+ GET /cart 200 in 513ms
+ ✓ Compiled /checkout in 500ms (917 modules)
+ GET /checkout 200 in 583ms
+ ✓ Compiled /track-order in 315ms (938 modules)
+ GET /track-order 200 in 389ms
+ ✓ Compiled /admin/login in 162ms (427 modules)
+ GET /admin/login 200 in 231ms
+ GET / 200 in 68ms
+ GET / 200 in 69ms
+ GET / 200 in 47ms
+ GET / 200 in 63ms
+ GET /products 200 in 94ms
+ GET / 200 in 63ms
+ ✓ Compiled /_not-found in 363ms (886 modules)
+ GET /_next/static/css/app/layout.css?v=1789832456210 404 in 596ms
+ GET /_next/static/chunks/main-app.js?v=1789832456210 404 in 602ms
+ GET /_next/static/chunks/app-pages-internals.js 404 in 600ms
+ GET /_next/static/chunks/app/page.js 404 in 590ms
+ GET /_next/static/chunks/app/not-found.js 404 in 597ms
+ GET /_next/static/chunks/app/layout.js 404 in 600ms
+ GET / 200 in 99ms
+ GET /_next/static/css/app/layout.css?v=1789832460077 404 in 75ms
+ GET /_next/static/chunks/main-app.js?v=1789832460077 404 in 90ms
+ GET /_next/static/chunks/app-pages-internals.js 404 in 89ms
+ GET /_next/static/chunks/app/layout.js 404 in 89ms
+ GET /_next/static/chunks/app/not-found.js 404 in 88ms
+ GET /_next/static/chunks/app/page.js 404 in 86ms
+ GET / 200 in 65ms
+ GET /_next/static/css/app/layout.css?v=1789832460821 404 in 61ms
+ GET /_next/static/chunks/main-app.js?v=1789832460821 404 in 84ms
+ GET /_next/static/chunks/app-pages-internals.js 404 in 82ms
+ GET /_next/static/chunks/app/not-found.js 404 in 81ms
+ GET /_next/static/chunks/app/layout.js 404 in 82ms
+ GET /_next/static/chunks/app/page.js 404 in 79ms
+ GET / 200 in 48ms
+ GET /_next/static/css/app/layout.css?v=1789832476630 404 in 68ms
+ GET /_next/static/chunks/app-pages-internals.js 404 in 76ms
+ GET /_next/static/chunks/main-app.js?v=1789832476630 404 in 79ms
+ GET /_next/static/chunks/app/layout.js 404 in 78ms
+ GET /_next/static/chunks/app/not-found.js 404 in 76ms
+ GET /_next/static/chunks/app/page.js 404 in 75ms
+ GET / 200 in 56ms
+ GET / 200 in 51ms
+ GET / 200 in 43ms
+ GET /_next/static/css/app/layout.css?v=1789832535621 404 in 25ms
+[?25h
