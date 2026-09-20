@@ -9,7 +9,6 @@ import { Reveal } from "@/components/ui/reveal";
 import { BrandMark } from "@/components/brand";
 
 export const metadata: Metadata = {
-  title: "التشكيلة",
   description:
     "دار رُقي — تشكيلة مختارة بعناية من الأزياء والجلديات والعطور والإكسسوارات.",
 };

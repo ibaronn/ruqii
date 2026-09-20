@@ -27,7 +27,9 @@ export async function generateMetadata(): Promise<Metadata> {
     },
     description: s.meta_description,
     keywords: ["رُقي", "أزياء", "إكسسوارات", "عطور", "جلديات", "تسوق"],
-    metadataBase: new URL("https://ruqi.example"),
+    metadataBase: new URL(
+      process.env.NEXT_PUBLIC_SITE_URL ?? "https://ruqii.vercel.app"
+    ),
     icons: {
       icon: "/favicon.png",
       apple: "/favicon.png",
@@ -36,7 +38,7 @@ export async function generateMetadata(): Promise<Metadata> {
       title: s.meta_title,
       description: s.meta_description,
       type: "website",
-      locale: "ar_SA",
+      locale: "ar_AR",
     },
   };
 }
