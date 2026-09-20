@@ -40,7 +40,17 @@ export function Drawer({
   if (!mounted) return null;
 
   return createPortal(
-    <div className="fixed inset-0 z-[90]" aria-hidden={!open}>
+    <div
+      className={cn(
+        "fixed inset-0 z-[90]",
+        // عند الإغلاق يجب ألا تلتقط هذه الطبقة النقرات، وإلا غطّت الصفحة كلها
+        // (الخلفية شفافة لكنها تبقى فوق الصفحة وتبتلع كل نقرة). نُخفيها بعد انتهاء حركة الإغلاق.
+        open
+          ? "pointer-events-auto visible"
+          : "pointer-events-none invisible transition-[visibility] delay-[340ms] duration-0"
+      )}
+      aria-hidden={!open}
+    >
       <button
         type="button"
         aria-label="إغلاق"
