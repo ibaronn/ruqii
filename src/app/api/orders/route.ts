@@ -36,8 +36,22 @@ export async function POST(req: NextRequest) {
   const { customerName, customerPhone, city, items } = parsed.data;
   const ids = [...new Set(items.map((i) => i.productId))];
 
-  try {
-    const result = await prisma.$transaction(async (tx) => {
+  // حد لكل رقم هاتف محفوظ في قاعدة البيانات (الحد في الذاكرة لا يعمل بين نُسخ Vercel)
+  const recentByPhone = await prisma.order.count({
+    where: {
+      customerPhone,
+      createdAt: { gte: new Date(Date.now() - 60 * 60 * 1000) },
+    },
+  });
+  if (recentByPhone >= 5) {
+    return NextResponse.json(
+      { error: "تم إرسال طلبات كثيرة من هذا الرقم، حاول لاحقًا أو تواصل معنا" },
+      { status: 429 }
+    );
+  }
+
+  const createOrder = () =>
+    prisma.$transaction(async (tx) => {
       const products = await tx.product.findMany({
         where: { id: { in: ids } },
         include: {
@@ -101,6 +115,21 @@ export async function POST(req: NextRequest) {
 
       return { orderNumber, total, order };
     });
+
+  try {
+    // رقم الطلب يُحسب من عدد طلبات اليوم؛ عند تزامن طلبين قد يتصادمان (P2002) فنعيد المحاولة برقم جديد
+    let result: Awaited<ReturnType<typeof createOrder>> | undefined;
+    for (let attempt = 0; attempt < 5; attempt++) {
+      try {
+        result = await createOrder();
+        break;
+      } catch (err) {
+        const code = (err as { code?: string })?.code;
+        if (code === "P2002" && attempt < 4) continue;
+        throw err;
+      }
+    }
+    if (!result) throw new Error("UNKNOWN");
 
     try {
       await notifyAdminOnOrder(result.order);
