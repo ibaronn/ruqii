@@ -39,7 +39,7 @@ export function TrackOrderView() {
     e.preventDefault();
     setErrors({});
     setResult(null);
-    if (!/^RQI-\d{8}-\d{3}$/i.test(orderNumber.trim())) {
+    if (!/^RQI-\d{8}-\d{3,}$/i.test(orderNumber.trim())) {
       setErrors({ orderNumber: "رقم الطلب غير صحيح" });
       return;
     }
@@ -153,7 +153,13 @@ export function TrackOrderView() {
                   آخر تحديث: {formatTimeFull(result.order.updatedAt)}
                 </span>
               </div>
-              <OrderTimeline stepIndex={stepIndex} />
+              {result.order.status === "CANCELLED" ? (
+                <div className="rounded-2xl border border-red-100/70 bg-red-50/70 px-5 py-4 text-[15px] text-red-700">
+                تم إلغاء هذا الطلب. إن كان لديك استفسار فتواصل معنا.
+              </div>
+              ) : (
+                <OrderTimeline stepIndex={stepIndex} />
+              )}
             </div>
 
             <div className="glass p-6">
