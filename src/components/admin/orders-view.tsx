@@ -81,9 +81,12 @@ export function OrdersView() {
       if (res.ok) {
         setDetail((d) => (d ? { ...d, status: next } : d));
         load();
+      } else {
+        const data = await res.json().catch(() => null);
+        window.alert(data?.error ?? "تعذّر تحديث الحالة");
       }
     } catch {
-      // ignore
+      window.alert("تعذّر الاتصال، حاول مرة أخرى");
     } finally {
       setUpdating(null);
     }
