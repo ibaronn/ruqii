@@ -20,7 +20,10 @@ export async function GET() {
     prisma.product.count(),
     prisma.product.count({ where: { isActive: true } }),
     prisma.order.count(),
-    prisma.order.aggregate({ _sum: { totalCents: true } }),
+    prisma.order.aggregate({
+      _sum: { totalCents: true },
+      where: { status: { not: "CANCELLED" } },
+    }),
     prisma.product.count({ where: { stock: { lte: 5 } } }),
     prisma.order.findMany({
       orderBy: { createdAt: "desc" },
@@ -41,7 +44,10 @@ export async function GET() {
   ]);
 
   const daysRaw = await prisma.order.findMany({
-    where: { createdAt: { gte: new Date(Date.now() - 6 * 86400000) } },
+    where: {
+      createdAt: { gte: new Date(Date.now() - 6 * 86400000) },
+      status: { not: "CANCELLED" },
+    },
     select: { createdAt: true, totalCents: true },
   });
 
