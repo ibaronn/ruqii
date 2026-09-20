@@ -66,7 +66,13 @@ export default async function SuccessPage({
 
       <div className="mx-auto mt-12 max-w-2xl">
         <div className="glass p-6 sm:p-8">
-          <OrderTimeline stepIndex={stepIndex} />
+          {order.status === "CANCELLED" ? (
+            <div className="rounded-2xl border border-red-100/70 bg-red-50/70 px-5 py-4 text-[15px] text-red-700">
+                تم إلغاء هذا الطلب. إن كان لديك استفسار فتواصل معنا.
+              </div>
+          ) : (
+            <OrderTimeline stepIndex={stepIndex} />
+          )}
         </div>
       </div>
 
@@ -104,14 +110,6 @@ export default async function SuccessPage({
             <h2 className="text-lg font-medium">الملخص</h2>
             <dl className="mt-4 space-y-2.5 text-sm">
               <div className="flex items-center justify-between">
-                <dt className="text-ink/55">الاسم</dt>
-                <dd className="font-medium">{order.customerName}</dd>
-              </div>
-              <div className="flex items-center justify-between">
-                <dt className="text-ink/55">المدينة / المنطقة</dt>
-                <dd className="font-medium">{order.city}</dd>
-              </div>
-              <div className="flex items-center justify-between border-t border-white/50 pt-3">
                 <dt className="text-ink/55">الإجمالي</dt>
                 <dd className="text-lg font-semibold tabular-nums">
                   {formatPrice(order.totalCents)}
