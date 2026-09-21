@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { IBM_Plex_Sans_Arabic } from "next/font/google";
+import { Tajawal, Manrope } from "next/font/google";
 import "./globals.css";
 import { StoreProvider } from "@/components/store/store-provider";
 import { Header } from "@/components/store/header";
@@ -9,10 +9,17 @@ import { Toasts } from "@/components/ui/toasts";
 import { prisma } from "@/lib/prisma";
 import { getSiteSettings } from "@/lib/site-settings";
 
-const arabic = IBM_Plex_Sans_Arabic({
+const arabic = Tajawal({
   subsets: ["arabic"],
-  weight: ["300", "400", "500", "600", "700"],
+  weight: ["300", "400", "500", "700"],
   variable: "--font-arabic",
+  display: "swap",
+});
+
+const english = Manrope({
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700", "800"],
+  variable: "--font-english",
   display: "swap",
 });
 
@@ -56,7 +63,7 @@ export default async function RootLayout({
   ]);
 
   return (
-    <html lang="ar" dir="rtl" className={arabic.variable}>
+    <html lang="ar" dir="rtl" className={`${arabic.variable} ${english.variable}`}>
       <body className="flex min-h-screen flex-col font-sans">
         <div className="ambient-bg" aria-hidden="true" />
         <StoreProvider>
