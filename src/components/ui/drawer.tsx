@@ -40,7 +40,13 @@ export function Drawer({
   if (!mounted) return null;
 
   return createPortal(
-    <div className="fixed inset-0 z-[90]" aria-hidden={!open}>
+    <div
+      className={cn(
+        "fixed inset-0 z-[90]",
+        open ? "pointer-events-auto" : "pointer-events-none"
+      )}
+      aria-hidden={!open}
+    >
       <button
         type="button"
         aria-label="إغلاق"
