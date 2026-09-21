@@ -2,11 +2,12 @@
 
 import * as React from "react";
 import Link from "next/link";
-import { Pencil, Plus, Search, Star } from "lucide-react";
+import { Pencil, Plus, Search, Star, Trash2 } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Select } from "@/components/ui/select";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import { Modal, ModalHeader } from "@/components/ui/modal";
 import { formatPrice } from "@/lib/utils";
 import { cn } from "@/lib/utils";
 
@@ -50,6 +51,9 @@ export function ProductsView() {
   const [page, setPage] = React.useState(1);
   const [data, setData] = React.useState<Page | null>(null);
   const [busyId, setBusyId] = React.useState<string | null>(null);
+  const [deleting, setDeleting] = React.useState<Product | null>(null);
+  const [deleteError, setDeleteError] = React.useState<string | null>(null);
+  const [deleteBusy, setDeleteBusy] = React.useState(false);
 
   React.useEffect(() => {
     fetch("/api/admin/categories")
@@ -98,6 +102,33 @@ export function ProductsView() {
       // ignore
     } finally {
       setBusyId(null);
+    }
+  };
+
+  const confirmDelete = async () => {
+    if (!deleting) return;
+    setDeleteError(null);
+    setDeleteBusy(true);
+    try {
+      const res = await fetch(`/api/admin/products/${deleting.id}`, {
+        method: "DELETE",
+      });
+      const body = await res.json().catch(() => ({}));
+      if (!res.ok) {
+        setDeleteError(body.error ?? "تعذّر حذف المنتج");
+        return;
+      }
+      setDeleting(null);
+      // If the deleted product was the only one on the last page, step back a page.
+      if (data && data.products.length === 1 && page > 1) {
+        setPage((p) => p - 1);
+      } else {
+        load();
+      }
+    } catch {
+      setDeleteError("تعذّر حذف المنتج");
+    } finally {
+      setDeleteBusy(false);
     }
   };
 
@@ -263,13 +294,26 @@ export function ProductsView() {
                     </button>
                   </td>
                   <td className="px-4 py-3 text-end">
-                    <Link
-                      href={`/admin/products/${p.id}/edit`}
-                      className="inline-flex h-8 items-center gap-1.5 rounded-sm px-2.5 text-[13px] font-medium text-ink/70 transition hover:bg-stone-faint hover:text-ink"
-                    >
-                      <Pencil className="size-3.5" />
-                      تعديل
-                    </Link>
+                    <div className="inline-flex items-center gap-1">
+                      <Link
+                        href={`/admin/products/${p.id}/edit`}
+                        className="inline-flex h-8 items-center gap-1.5 rounded-sm px-2.5 text-[13px] font-medium text-ink/70 transition hover:bg-stone-faint hover:text-ink"
+                      >
+                        <Pencil className="size-3.5" />
+                        تعديل
+                      </Link>
+                      <button
+                        type="button"
+                        onClick={() => {
+                          setDeleteError(null);
+                          setDeleting(p);
+                        }}
+                        aria-label={`حذف ${p.nameAr}`}
+                        className="flex size-8 items-center justify-center rounded-sm text-ink/55 transition hover:bg-red-50 hover:text-red-600"
+                      >
+                        <Trash2 className="size-3.5" />
+                      </button>
+                    </div>
                   </td>
                 </tr>
               ))}
@@ -306,6 +350,50 @@ export function ProductsView() {
           </div>
         )}
       </div>
+
+      <Modal
+        open={!!deleting}
+        onClose={() => (deleteBusy ? undefined : setDeleting(null))}
+        labelledBy="product-delete-title"
+      >
+        {deleting && (
+          <>
+            <ModalHeader title="حذف المنتج" onClose={() => setDeleting(null)} />
+            <div className="px-6 py-5">
+              <p className="text-[15px] leading-relaxed text-ink/75">
+                هل تريد حذف{" "}
+                <span className="font-semibold text-ink">{deleting.nameAr}</span>{" "}
+                نهائيًا؟ سيُحذف المنتج وصوره ولا يمكن التراجع. وإذا كان مرتبطًا بطلبات
+                سابقة فلن يُحذف، والأفضل تعطيله بدلًا من ذلك.
+              </p>
+              {deleteError && (
+                <div
+                  role="alert"
+                  className="mt-4 rounded-sm border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700"
+                >
+                  {deleteError}
+                </div>
+              )}
+              <div className="mt-6 flex items-center gap-3">
+                <Button
+                  variant="danger"
+                  onClick={confirmDelete}
+                  disabled={deleteBusy}
+                >
+                  حذف
+                </Button>
+                <Button
+                  variant="ghost"
+                  onClick={() => setDeleting(null)}
+                  disabled={deleteBusy}
+                >
+                  إلغاء
+                </Button>
+              </div>
+            </div>
+          </>
+        )}
+      </Modal>
     </div>
   );
 }
