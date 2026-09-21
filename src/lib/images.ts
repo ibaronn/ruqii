@@ -72,36 +72,60 @@ async function render(
   return { buffer, ext: ".jpg" };
 }
 
+const MAIN_WIDTH = 1100;
+const THUMB_WIDTH = 420;
+
 async function savePair(
   buffer: Buffer,
-  productId: string
+  productId: string,
+  sourceExt: string
 ): Promise<{ mainUrl: string; thumbUrl: string }> {
   const key = `${Date.now().toString(36)}-${Buffer.from(crypto.randomBytes(9)).toString("base64url")}`;
 
-  if (process.env.BLOB_READ_WRITE_TOKEN) {
-    const [mainBlob, thumbBlob] = await Promise.all([
-      put(`uploads/${productId}/${key}.jpg`, buffer, {
-        access: "public",
-        contentType: "image/jpeg",
-        addRandomSuffix: false,
-      }),
-      put(`uploads/${productId}/${key}-sm.jpg`, buffer, {
-        access: "public",
-        contentType: "image/jpeg",
-        addRandomSuffix: false,
-      }),
+  const [{ buffer: mainBuffer, ext: mainExt }, { buffer: thumbBuffer, ext: thumbExt }] =
+    await Promise.all([
+      render(buffer, sourceExt, MAIN_WIDTH, 84),
+      render(buffer, sourceExt, THUMB_WIDTH, 76),
     ]);
-    return { mainUrl: mainBlob.url, thumbUrl: thumbBlob.url };
+
+  if (process.env.BLOB_READ_WRITE_TOKEN) {
+    try {
+      const [mainBlob, thumbBlob] = await Promise.all([
+        put(`uploads/${productId}/${key}${mainExt}`, mainBuffer, {
+          access: "public",
+          contentType: contentTypeFor(mainExt),
+          addRandomSuffix: false,
+        }),
+        put(`uploads/${productId}/${key}-sm${thumbExt}`, thumbBuffer, {
+          access: "public",
+          contentType: contentTypeFor(thumbExt),
+          addRandomSuffix: false,
+        }),
+      ]);
+      return { mainUrl: mainBlob.url, thumbUrl: thumbBlob.url };
+    } catch {
+      // fall through to local/db storage
+    }
   }
 
-  const dir = path.join(UPLOADS_ROOT, productId);
-  await ensureDir(dir);
-  await fs.writeFile(path.join(dir, `${key}.jpg`), buffer);
-  await fs.writeFile(path.join(dir, `${key}-sm.jpg`), buffer);
-  return {
-    mainUrl: `/uploads/${productId}/${key}.jpg`,
-    thumbUrl: `/uploads/${productId}/${key}-sm.jpg`,
-  };
+  try {
+    const dir = path.join(UPLOADS_ROOT, productId);
+    await ensureDir(dir);
+    await fs.writeFile(path.join(dir, `${key}${mainExt}`), mainBuffer);
+    await fs.writeFile(path.join(dir, `${key}-sm${thumbExt}`), thumbBuffer);
+    return {
+      mainUrl: `/uploads/${productId}/${key}${mainExt}`,
+      thumbUrl: `/uploads/${productId}/${key}-sm${thumbExt}`,
+    };
+  } catch {
+    // Vercel serverless has a read-only filesystem. When neither Vercel Blob
+    // nor a writable filesystem is available, store the optimized image as a
+    // data URL inside the database so uploads keep working out of the box.
+    return {
+      mainUrl: `data:${contentTypeFor(mainExt)};base64,${mainBuffer.toString("base64")}`,
+      thumbUrl: `data:${contentTypeFor(thumbExt)};base64,${thumbBuffer.toString("base64")}`,
+    };
+  }
 }
 
 export async function saveImageFromBuffer(
@@ -109,17 +133,16 @@ export async function saveImageFromBuffer(
   mime: string,
   productId: string
 ): Promise<{ mainUrl: string; thumbUrl: string }> {
-  if (buffer.length === 0) throw new ImageError("empty", "ط§ظ„ظ…ظ„ظپ ظپط§ط±ط؛");
+  if (buffer.length === 0) throw new ImageError("empty", "الملف فارغ");
   if (buffer.length > MAX_IMAGE_BYTES)
-    throw new ImageError("too-large", "ط­ط¬ظ… ط§ظ„طµظˆط±ط© ظٹطھط¬ط§ظˆط² ط§ظ„ط­ط¯ ط§ظ„ظ…ط³ظ…ظˆط­ 10MB");
+    throw new ImageError("too-large", "حجم الصورة يتجاوز الحد المسموح 10MB");
   const ext = ALLOWED_TYPES.get(mime);
   if (!ext)
-    throw new ImageError("type", "ظ†ظˆط¹ ط§ظ„ظ…ظ„ظپ ط؛ظٹط± ظ…ط¯ط¹ظˆظ… (JPG, PNG, WebP, AVIF)");
+    throw new ImageError("type", "نوع الملف غير مدعوم (JPG, PNG, WebP, AVIF)");
   try {
-    const pair = await savePair(buffer, productId);
-    return pair;
+    return await savePair(buffer, productId, ext);
   } catch {
-    throw new ImageError("process", "طھط¹ط°ط± ظ…ط¹ط§ظ„ط¬ط© ط§ظ„طµظˆط±ط©طŒ طھط£ظƒط¯ ط£ظ†ظ‡ط§ طµظˆط±ط© ط³ظ„ظٹظ…ط©");
+    throw new ImageError("process", "تعذّرت معالجة الصورة، تأكد أنها صورة سليمة");
   }
 }
 
@@ -128,23 +151,23 @@ export async function saveImageFromUrl(
   productId: string
 ): Promise<{ mainUrl: string; thumbUrl: string }> {
   if (!/^https?:\/\//i.test(url))
-    throw new ImageError("url", "ط±ط§ط¨ط· ط§ظ„طµظˆط±ط© ط؛ظٹط± طµط­ظٹط­");
+    throw new ImageError("url", "رابط الصورة غير صحيح");
   const res = await fetch(url, {
     redirect: "follow",
     signal: AbortSignal.timeout(15000),
     headers: { "User-Agent": "RuqiStoreBot/1.0" },
   });
-  if (!res.ok) throw new ImageError("url", "طھط¹ط°ط± طھط­ظ…ظٹظ„ ط§ظ„طµظˆط±ط© ظ…ظ† ط§ظ„ط±ط§ط¨ط·");
+  if (!res.ok) throw new ImageError("url", "تعذّر تحميل الصورة من الرابط");
   const buf = Buffer.from(await res.arrayBuffer());
   if (buf.length > MAX_IMAGE_BYTES)
-    throw new ImageError("too-large", "ط­ط¬ظ… ط§ظ„طµظˆط±ط© ظٹطھط¬ط§ظˆط² ط§ظ„ط­ط¯ ط§ظ„ظ…ط³ظ…ظˆط­ 10MB");
+    throw new ImageError("too-large", "حجم الصورة يتجاوز الحد المسموح 10MB");
   const mime = res.headers.get("content-type")?.split(";")[0]?.trim() ?? "";
   const ext = ALLOWED_TYPES.get(mime);
-  if (!ext) throw new ImageError("type", "ظ†ظˆط¹ ظ…ظ„ظپ ط؛ظٹط± ظ…ط¯ط¹ظˆظ… ط¹ظ„ظ‰ ط§ظ„ط±ط§ط¨ط·");
+  if (!ext) throw new ImageError("type", "نوع ملف غير مدعوم على الرابط");
   try {
-    return await savePair(buf, productId);
+    return await savePair(buf, productId, ext);
   } catch {
-    throw new ImageError("process", "طھط¹ط°ط± ظ…ط¹ط§ظ„ط¬ط© ط§ظ„طµظˆط±ط© ظ…ظ† ط§ظ„ط±ط§ط¨ط·");
+    throw new ImageError("process", "تعذّرت معالجة الصورة من الرابط");
   }
 }
 
