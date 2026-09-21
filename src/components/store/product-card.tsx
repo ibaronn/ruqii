@@ -21,24 +21,27 @@ export function ProductCard({
       : null;
 
   return (
-    <article className="group flex flex-col transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] will-change-transform hover:-translate-y-1">
+    <article className="group flex flex-col transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] will-change-transform hover:-translate-y-1.5">
       <Link
         href={`/products/${product.slug}`}
         aria-label={product.nameAr}
-        className="relative block overflow-hidden rounded-2xl bg-white/45 shadow-[0_0_0_rgba(0,0,0,0)] ring-1 ring-white/50 transition-shadow duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:shadow-[0_26px_55px_-24px_rgba(30,24,16,0.42)] focus-visible:outline-2 focus-visible:outline-offset-4"
+        className="card-glow relative block overflow-hidden rounded-2xl bg-white/45 shadow-[0_0_0_rgba(0,0,0,0)] ring-1 ring-white/50 transition-shadow duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:shadow-[0_30px_60px_-24px_rgba(30,24,16,0.42)] focus-visible:outline-2 focus-visible:outline-offset-4"
       >
         <div className="aspect-[3/4] w-full overflow-hidden">
-          {image ? (
-            <img
-              src={image}
-              alt={product.nameAr}
-              loading={priority ? "eager" : "lazy"}
-              decoding="async"
-              className="h-full w-full object-cover transition-transform duration-[750ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.045]"
-            />
-          ) : (
-            <ProductPlaceholder name={product.nameAr} />
-          )}
+          <div className="relative h-full w-full">
+            {image ? (
+              <img
+                src={image}
+                alt={product.nameAr}
+                loading={priority ? "eager" : "lazy"}
+                decoding="async"
+                className="h-full w-full object-cover transition-transform duration-[900ms] ease-[cubic-bezier(0.22,1,0.36,1)] will-change-transform group-hover:scale-[1.07]"
+              />
+            ) : (
+              <ProductPlaceholder name={product.nameAr} />
+            )}
+            <div className="pointer-events-none absolute inset-0 -translate-x-1/2 bg-gradient-to-l from-transparent via-white/35 to-transparent opacity-0 transition-all duration-700 group-hover:translate-x-1/2 group-hover:opacity-100" aria-hidden="true" />
+          </div>
         </div>
 
         {off && !outOfStock && (

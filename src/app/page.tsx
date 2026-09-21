@@ -1,6 +1,6 @@
 import Link from "next/link";
 import type { Metadata } from "next";
-import { ArrowLeft, ScanLine, Sparkles, Truck } from "lucide-react";
+import { ArrowLeft, ScanLine, Sparkles, Truck, BadgeCheck, Timer, RotateCcw } from "lucide-react";
 import { prisma } from "@/lib/prisma";
 import { productInclude, serializeProduct } from "@/lib/products";
 import { getSiteSettings } from "@/lib/site-settings";
@@ -15,6 +15,14 @@ export const metadata: Metadata = {
 };
 
 const valueIcons = [Sparkles, Truck, ScanLine];
+const marqueeItems = [
+  { icon: BadgeCheck, text: "جودة أصلية مضمونة" },
+  { icon: Timer, text: "شحن سريع وآمن" },
+  { icon: RotateCcw, text: "إرجاع واستبدال سهل" },
+  { icon: Sparkles, text: "تشكيلة مختارة بعناية" },
+  { icon: ScanLine, text: "دفع آمن ومشفر" },
+  { icon: Truck, text: "تغليف فاخر هدية" },
+];
 
 export default async function Home() {
   const [featuredProducts, categories, s] = await Promise.all([
@@ -69,7 +77,7 @@ export default async function Home() {
               {s.hero_title_1}
               <br />
               {s.hero_title_2}
-              <span className="font-semibold"> {s.hero_title_accent}</span>
+              <span className="text-gradient font-semibold"> {s.hero_title_accent}</span>
             </h1>
             <p
               className="mt-7 max-w-md animate-fade-up text-lg leading-relaxed text-ink/60"
@@ -83,14 +91,14 @@ export default async function Home() {
             >
               <Link
                 href="/products"
-                className="group inline-flex h-[52px] items-center gap-2.5 bg-ink px-8 text-[15px] font-medium text-white transition hover:bg-[#2b2b2b] active:scale-[0.98]"
+                className="btn-shine group inline-flex h-[52px] items-center gap-2.5 rounded-xl bg-ink px-8 text-[15px] font-medium text-white shadow-[0_18px_40px_-18px_rgba(10,10,10,0.6)] transition-all duration-300 hover:bg-[#2b2b2b] hover:-translate-y-0.5 hover:shadow-[0_26px_54px_-20px_rgba(10,10,10,0.7)] active:translate-y-0 active:scale-[0.98]"
               >
                 {s.hero_cta_primary}
                 <ArrowLeft className="size-4 transition-transform duration-300 group-hover:-translate-x-1" />
               </Link>
               <a
                 href="#philosophy"
-                className="inline-flex h-[52px] items-center gap-2.5 border border-ink/20 px-8 text-[15px] font-medium text-ink transition hover:border-ink active:scale-[0.98]"
+                className="inline-flex h-[52px] items-center gap-2.5 rounded-xl border border-ink/20 bg-white/40 px-8 text-[15px] font-medium text-ink backdrop-blur-sm transition-all duration-300 hover:border-ink/40 hover:bg-white/60 active:scale-[0.98]"
               >
                 {s.hero_cta_secondary}
               </a>
@@ -101,7 +109,8 @@ export default async function Home() {
             className="mt-16 hidden animate-fade-up items-center justify-center lg:mt-0 lg:flex"
             style={{ animationDelay: "200ms" }}
           >
-            <div className="flex flex-col items-center gap-6 text-center">
+            <div className="hover-float relative flex flex-col items-center gap-6 text-center">
+              <div className="glass absolute -inset-10 -z-10 rounded-full opacity-0 blur-2xl transition-opacity duration-700 hover:opacity-40" aria-hidden="true" />
               <BrandMark className="h-40 w-40 opacity-90" />
               <div className="space-y-1.5">
                 <p className="text-5xl font-semibold leading-none">
@@ -115,14 +124,30 @@ export default async function Home() {
           </div>
         </div>
 
-        <div className="shell mt-16 border-t border-white/50">
+        <div className="shell">
+          <div className="marquee overflow-hidden border-t border-white/40 py-5">
+            <div className="marquee-track gap-10" aria-hidden="false">
+              {[...marqueeItems, ...marqueeItems].map((m, i) => (
+                <div
+                  key={i}
+                  className="flex shrink-0 items-center gap-2.5 text-[13.5px] font-medium text-ink/45"
+                >
+                  <m.icon className="size-4 text-bronze" />
+                  <span>{m.text}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        <div className="shell border-b border-white/50">
           <dl className="grid grid-cols-1 divide-y divide-white/40 sm:grid-cols-3 sm:divide-x sm:divide-y-0 sm:divide-x-reverse">
             {values.map((v, i) => (
               <div
                 key={i}
                 className="flex items-start gap-4 py-6 sm:px-6 sm:first:ps-0"
               >
-                <v.icon className="mt-0.5 size-5 shrink-0 text-ink/50" />
+                <v.icon className="mt-0.5 size-5 shrink-0 text-bronze" />
                 <div>
                   <dt className="text-[15px] font-medium">{v.title}</dt>
                   <dd className="mt-0.5 text-sm leading-relaxed text-ink/55">
@@ -151,7 +176,7 @@ export default async function Home() {
             className="group inline-flex shrink-0 items-center gap-1.5 text-[15px] font-medium text-ink transition hover:text-ink/60"
           >
             {s.featured_viewall}
-            <ArrowLeft className="size-4 transition-transform group-hover:-translate-x-1" />
+            <ArrowLeft className="size-4 transition-transform duration-300 group-hover:-translate-x-1" />
           </Link>
         </Reveal>
         <Reveal className="mt-8" delay={80}>
@@ -164,8 +189,6 @@ export default async function Home() {
           )}
         </Reveal>
       </section>
-
-      {/* Categories */}
       <section className="shell mt-20">
         <Reveal className="flex items-end justify-between gap-4">
           <div>
@@ -185,17 +208,20 @@ export default async function Home() {
                 <Reveal delay={idx * 50} className="h-full">
                   <Link
                     href={`/products?category=${c.slug}`}
-                    className="glass group flex h-full flex-col justify-between gap-10 rounded-2xl px-6 py-8 transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_28px_60px_-26px_rgba(30,24,16,0.45)]"
+                    className="glass card-glow group flex h-full flex-col justify-between gap-10 rounded-2xl px-6 py-8 transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] hover:-translate-y-1.5 hover:shadow-[0_32px_64px_-28px_rgba(30,24,16,0.5)]"
                   >
-                    <p className="text-5xl font-light text-ink/15 transition-colors duration-300 group-hover:text-ink/25">
+                    <p className="text-5xl font-light text-ink/15 transition-colors duration-500 group-hover:text-gradient">
                       {String(c.sortOrder).padStart(2, "0")}
                     </p>
                     <div>
-                      <h3 className="text-xl font-medium">{c.nameAr}</h3>
+                      <h3 className="text-xl font-medium transition-transform duration-500 group-hover:-translate-x-1">
+                        {c.nameAr}
+                      </h3>
                       <p className="mt-1 text-sm text-ink/50">
                         {c._count.products} منتج
                       </p>
                     </div>
+                    <span className="pointer-events-none absolute bottom-5 start-5 size-8 rounded-full border border-bronze/25 opacity-0 transition-all duration-500 group-hover:opacity-100" aria-hidden="true" />
                   </Link>
                 </Reveal>
               </li>

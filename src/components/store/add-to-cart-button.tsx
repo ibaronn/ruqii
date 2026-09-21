@@ -67,7 +67,7 @@ export function AddToCartButton({
   }
 
   const base =
-    "inline-flex w-full items-center justify-center gap-2 rounded-xl font-medium transition-all duration-200 active:scale-[0.98]";
+    "btn-shine inline-flex w-full items-center justify-center gap-2 rounded-xl font-medium transition-all duration-200 active:scale-[0.98]";
   const variants = {
     overlay:
       "glass-soft h-11 text-ink hover:bg-ink hover:text-white disabled:opacity-60",

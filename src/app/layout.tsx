@@ -5,6 +5,7 @@ import { StoreProvider } from "@/components/store/store-provider";
 import { Header } from "@/components/store/header";
 import { Footer } from "@/components/store/footer";
 import { CartDrawer } from "@/components/store/cart-drawer";
+import { StoreScroll } from "@/components/store/store-scroll";
 import { Toasts } from "@/components/ui/toasts";
 import { prisma } from "@/lib/prisma";
 import { getSiteSettings } from "@/lib/site-settings";
@@ -67,6 +68,7 @@ export default async function RootLayout({
       <body className="flex min-h-screen flex-col font-sans">
         <div className="ambient-bg" aria-hidden="true" />
         <StoreProvider>
+          <StoreScroll />
           <Header
             categories={categories}
             labels={{

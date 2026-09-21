@@ -47,7 +47,7 @@ export function ProductGallery({ product }: { product: ProductSummary }) {
           key={activeImg.url}
           src={activeImg.url}
           alt={activeImg.altAr ?? product.nameAr}
-          className={`h-full w-full object-contain transition-transform duration-300 ease-out ${
+          className={`h-full w-full object-contain transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] ${
             zooming ? "scale-[1.9]" : "scale-100"
           }`}
           style={{
@@ -86,8 +86,8 @@ export function ProductGallery({ product }: { product: ProductSummary }) {
                 aria-current={i === active}
                 className={
                   i === active
-                    ? "size-16 shrink-0 overflow-hidden rounded-xl ring-2 ring-ink ring-offset-2"
-                    : "size-16 shrink-0 overflow-hidden rounded-xl opacity-70 transition hover:opacity-100"
+                    ? "size-16 shrink-0 overflow-hidden rounded-xl ring-2 ring-ink ring-offset-2 transition-all duration-300"
+                    : "size-16 shrink-0 overflow-hidden rounded-xl opacity-70 transition-all duration-300 hover:scale-[1.04] hover:opacity-100"
                 }
               >
                 <img src={img.thumb ?? img.url} alt="" className="h-full w-full object-cover" />

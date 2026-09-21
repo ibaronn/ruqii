@@ -55,10 +55,8 @@ export function Header({
       <header className="sticky top-0 z-50 px-3 pt-3 sm:px-5 sm:pt-4">
         <div
           className={cn(
-            "glass-bar mx-auto flex h-16 w-full max-w-shell items-center gap-2 px-3 transition-shadow duration-300 sm:px-5",
-            scrolled
-              ? "shadow-[0_30px_64px_-34px_rgba(30,24,16,0.5)]"
-              : "shadow-none"
+            "glass-bar mx-auto flex items-center gap-2 px-3 transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] sm:px-5",
+            scrolled ? "h-14 max-w-5xl shadow-[0_30px_64px_-34px_rgba(30,24,16,0.5)]" : "h-16 w-full max-w-shell shadow-none"
           )}
         >
           <button
@@ -80,13 +78,15 @@ export function Header({
           >
             <Link
               href="/"
-              className="rounded-xl px-3.5 py-2 text-[15px] text-ink/70 transition-colors hover:bg-white/60 hover:text-ink"
+              aria-current={pathname === "/" ? "page" : undefined}
+              className="nav-link rounded-xl px-3.5 py-2 text-[15px] text-ink/70 transition-colors hover:bg-white/60 hover:text-ink"
             >
               {labels.home}
             </Link>
             <Link
               href="/products"
-              className="rounded-xl px-3.5 py-2 text-[15px] text-ink/70 transition-colors hover:bg-white/60 hover:text-ink"
+              aria-current={pathname.startsWith("/products") ? "page" : undefined}
+              className="nav-link rounded-xl px-3.5 py-2 text-[15px] text-ink/70 transition-colors hover:bg-white/60 hover:text-ink"
             >
               {labels.products}
             </Link>
@@ -97,7 +97,7 @@ export function Header({
                   className="flex items-center gap-1 rounded-xl px-3.5 py-2 text-[15px] text-ink/70 transition-colors hover:bg-white/60 hover:text-ink"
                 >
                   {labels.categories}
-                  <ChevronDown className="size-3.5 opacity-60" />
+                  <ChevronDown className="size-3.5 opacity-60 transition-transform duration-300 group-hover:rotate-180" />
                 </button>
                 <div className="invisible absolute top-full start-0 flex min-w-56 translate-y-1 flex-col glass-soft p-2 opacity-0 transition-all duration-200 group-hover:visible group-hover:translate-y-0 group-hover:opacity-100 group-focus-within:visible group-focus-within:translate-y-0 group-focus-within:opacity-100">
                   {categories.map((c) => (
@@ -121,7 +121,8 @@ export function Header({
             )}
             <Link
               href="/track-order"
-              className="rounded-xl px-3.5 py-2 text-[15px] text-ink/70 transition-colors hover:bg-white/60 hover:text-ink"
+              aria-current={pathname.startsWith("/track-order") ? "page" : undefined}
+              className="nav-link rounded-xl px-3.5 py-2 text-[15px] text-ink/70 transition-colors hover:bg-white/60 hover:text-ink"
             >
               {labels.track}
             </Link>

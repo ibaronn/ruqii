@@ -219,6 +219,136 @@ body {
     color: #fff;
   }
 
+  /* Animated link underline (RTL aware) */
+  .nav-link {
+    position: relative;
+    text-decoration: none;
+  }
+  .nav-link::after {
+    content: "";
+    position: absolute;
+    inset-inline-start: 0;
+    inset-inline-end: 100%;
+    bottom: 6px;
+    height: 1.5px;
+    border-radius: 2px;
+    background: linear-gradient(90deg, #a87e4f, #c9ab82);
+    transition:
+      inset-inline-end 0.5s var(--ease-out),
+      opacity 0.5s var(--ease-out);
+    opacity: 0;
+  }
+  .nav-link:hover::after,
+  .nav-link[aria-current="page"]::after {
+    inset-inline-end: 25%;
+    opacity: 1;
+  }
+
+  /* Bronze gradient text for accents */
+  .text-gradient {
+    background: linear-gradient(
+      120deg,
+      #8c673e 0%,
+      #a87e4f 28%,
+      #c9ab82 52%,
+      #a87e4f 76%,
+      #8c673e 100%
+    );
+    background-size: 200% auto;
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    animation: bronze-shine 7s ease-in-out infinite;
+  }
+
+  /* Shine sweep for buttons & cards */
+  .btn-shine {
+    position: relative;
+    overflow: hidden;
+  }
+  .btn-shine::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    transform: translateX(-140%) skewX(-18deg);
+    background: linear-gradient(
+      100deg,
+      transparent 20%,
+      rgba(255, 255, 255, 0.35) 50%,
+      transparent 80%
+    );
+    transition: transform 0.9s var(--ease-out);
+    pointer-events: none;
+  }
+  .btn-shine:hover::before,
+  .btn-shine:focus-visible::before {
+    transform: translateX(140%) skewX(-18deg);
+  }
+
+  /* Card top light streak that eases in on hover */
+  .card-glow {
+    position: relative;
+  }
+  .card-glow::before {
+    content: "";
+    position: absolute;
+    inset: 0 0 auto 0;
+    height: 1px;
+    border-radius: inherit;
+    background: linear-gradient(90deg, transparent, rgba(201, 171, 130, 0.85), transparent);
+    transform: scaleX(0);
+    transform-origin: center;
+    transition: transform 0.6s var(--ease-out);
+    z-index: 1;
+  }
+  .card-glow:hover::before {
+    transform: scaleX(1);
+  }
+
+  /* Marquee strip */
+  @keyframes marquee {
+    from {
+      transform: translate3d(0, 0, 0);
+    }
+    to {
+      transform: translate3d(50%, 0, 0);
+    }
+  }
+  .marquee-track {
+    display: flex;
+    width: max-content;
+    animation: marquee 26s linear infinite;
+    will-change: transform;
+  }
+  .marquee:hover .marquee-track {
+    animation-play-state: paused;
+  }
+
+  /* Floating decorative shadow */
+  @keyframes hover-float {
+    0%,
+    100% {
+      transform: translate3d(0, 0, 0);
+    }
+    50% {
+      transform: translate3d(0, -14px, 0);
+    }
+  }
+  .hover-float {
+    animation: hover-float 7s ease-in-out infinite;
+    will-change: transform;
+  }
+
+  @keyframes bronze-shine {
+    0%,
+    100% {
+      background-position: 0% center;
+    }
+    50% {
+      background-position: 100% center;
+    }
+  }
+
   /* raised, curved glass chip for controls */
   .glass-control {
     border-radius: 0.8rem;
