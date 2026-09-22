@@ -3,6 +3,8 @@ import { prisma } from "@/lib/prisma";
 import { guardAdmin, unauthorized } from "../../../_guard";
 import { ORDER_STATUSES } from "@/lib/orders";
 
+export const dynamic = "force-dynamic";
+
 export async function PATCH(
   req: NextRequest,
   { params }: { params: { id: string } }
@@ -38,4 +40,24 @@ export async function PATCH(
       updatedAt: updated.updatedAt.toISOString(),
     },
   });
+}
+
+export async function DELETE(
+  _req: NextRequest,
+  { params }: { params: { id: string } }
+) {
+  const admin = await guardAdmin();
+  if (!admin) return unauthorized();
+
+  const order = await prisma.order.findUnique({ where: { id: params.id } });
+  if (!order) {
+    return NextResponse.json({ error: "الطلب غير موجود" }, { status: 404 });
+  }
+
+  await prisma.$transaction([
+    prisma.orderItem.deleteMany({ where: { orderId: params.id } }),
+    prisma.order.delete({ where: { id: params.id } }),
+  ]);
+
+  return NextResponse.json({ ok: true });
 }

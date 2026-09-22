@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { Eye, Search } from "lucide-react";
+import { Eye, Search, Trash2 } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Select } from "@/components/ui/select";
 import { Button } from "@/components/ui/button";
@@ -46,6 +46,8 @@ export function OrdersView() {
   const [data, setData] = React.useState<Page | null>(null);
   const [detail, setDetail] = React.useState<Order | null>(null);
   const [updating, setUpdating] = React.useState<string | null>(null);
+  const [deleting, setDeleting] = React.useState<string | null>(null);
+  const [confirmDelete, setConfirmDelete] = React.useState(false);
 
   React.useEffect(() => {
     const t = window.setTimeout(() => setDebouncedQ(q), 300);
@@ -86,6 +88,28 @@ export function OrdersView() {
       // ignore
     } finally {
       setUpdating(null);
+    }
+  };
+
+  const deleteOrder = async (orderId: string) => {
+    setDeleting(orderId);
+    try {
+      const res = await fetch(`/api/admin/orders/${orderId}/status`, {
+        method: "DELETE",
+      });
+      if (res.ok) {
+        setDetail(null);
+        setConfirmDelete(false);
+        if (data && data.orders.length === 1 && page > 1) {
+          setPage((p) => p - 1);
+        } else {
+          load();
+        }
+      }
+    } catch {
+      // ignore
+    } finally {
+      setDeleting(null);
     }
   };
 
@@ -171,15 +195,34 @@ export function OrdersView() {
                     <StatusBadge status={o.status} />
                   </td>
                   <td className="px-4 py-3 text-end">
-                    <Button
-                      variant="outline"
-                      size="sm"
-                      onClick={() => setDetail(o)}
-                      className="gap-1.5"
-                    >
-                      <Eye className="size-3.5" />
-                      عرض
-                    </Button>
+                    <div className="flex items-center justify-end gap-1.5">
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        disabled={deleting === o.id}
+                        onClick={() => {
+                          setDetail(o);
+                          setConfirmDelete(false);
+                        }}
+                        className="gap-1.5"
+                      >
+                        <Eye className="size-3.5" />
+                        عرض
+                      </Button>
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        disabled={deleting === o.id}
+                        onClick={() => {
+                          setDetail(o);
+                          setConfirmDelete(true);
+                        }}
+                        className="gap-1.5 border-red-200/70 text-red-600 hover:bg-red-50/70 hover:text-red-700"
+                      >
+                        <Trash2 className="size-3.5" />
+                        {deleting === o.id ? "…" : "حذف"}
+                      </Button>
+                    </div>
                   </td>
                 </tr>
               ))}
@@ -268,6 +311,36 @@ export function OrdersView() {
                   الحالة الحالية: <StatusBadge status={detail.status} />
                 </p>
               </section>
+
+              {confirmDelete && (
+                <section className="mt-6 rounded-2xl border border-red-200/70 bg-red-50/60 p-4">
+                  <h3 className="text-sm font-semibold text-red-700">
+                    حذف الطلب {detail.orderNumber}؟
+                  </h3>
+                  <p className="mt-1 text-[13px] text-red-600/80">
+                    سيُحذف الطلب نهائياً ولا يمكن التراجع. لن تُستعاد كميات المخزون.
+                  </p>
+                  <div className="mt-3 flex flex-wrap gap-2">
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      disabled={deleting === detail.id}
+                      onClick={() => setConfirmDelete(false)}
+                    >
+                      إلغاء
+                    </Button>
+                    <Button
+                      size="sm"
+                      disabled={deleting === detail.id}
+                      onClick={() => deleteOrder(detail.id)}
+                      className="gap-1.5 bg-red-600 hover:bg-red-700"
+                    >
+                      <Trash2 className="size-3.5" />
+                      {deleting === detail.id ? "جارٍ الحذف…" : "تأكيد الحذف"}
+                    </Button>
+                  </div>
+                </section>
+              )}
 
               <section className="mt-6">
                 <h3 className="text-sm font-semibold">المنتجات</h3>

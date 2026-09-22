@@ -43,11 +43,11 @@ function buildBody(o: OrderNotifyLike) {
     lines.push(
       `• ${escapeHtml(item.productNameAr)} ×${item.quantity} = <b>${formatCents(
         item.priceCents * item.quantity
-      )} ر.س</b>`
+      )} د.ل</b>`
     );
   }
 
-  lines.push("", `الإجمالي: <b>${formatCents(o.totalCents)} ر.س</b>`);
+  lines.push("", `الإجمالي: <b>${formatCents(o.totalCents)} د.ل</b>`);
 
   return lines.join("\n").slice(0, TG_TEXT_MAX);
 }
