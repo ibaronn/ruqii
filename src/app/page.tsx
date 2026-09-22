@@ -6,7 +6,6 @@ import { productInclude, serializeProduct } from "@/lib/products";
 import { getSiteSettings } from "@/lib/site-settings";
 import { ProductGrid } from "@/components/store/product-grid";
 import { Reveal } from "@/components/ui/reveal";
-import { BrandMark } from "@/components/brand";
 
 export const metadata: Metadata = {
   title: "التشكيلة",
@@ -106,21 +105,22 @@ export default async function Home() {
           </div>
 
           <div
-            className="mt-16 hidden animate-fade-up items-center justify-center lg:mt-0 lg:flex"
+            className="mt-14 flex animate-fade-up items-center justify-center lg:mt-0 lg:justify-end"
             style={{ animationDelay: "200ms" }}
           >
-            <div className="hover-float relative flex flex-col items-center gap-6 text-center">
-              <div className="glass absolute -inset-10 -z-10 rounded-full opacity-0 blur-2xl transition-opacity duration-700 hover:opacity-40" aria-hidden="true" />
-              <BrandMark className="h-40 w-40 opacity-90" />
-              <div className="space-y-1.5">
-                <p className="text-5xl font-semibold leading-none">
-                  {s.brand_name}
-                </p>
-                <p className="text-xs uppercase tracking-[0.42em] text-ink/40">
-                  {s.brand_tagline}
-                </p>
+            <figure className="hover-float relative w-full max-w-sm lg:max-w-lg">
+              <div className="absolute inset-0 -z-10 translate-y-4 rounded-[2rem] bg-bronze/20 blur-2xl" aria-hidden="true" />
+              <div className="overflow-hidden rounded-[2rem] border border-white/70 bg-white/55 p-2 shadow-[0_30px_70px_-30px_rgba(10,10,10,0.45)] ring-1 ring-ink/5">
+                <img
+                  src="/hero-logo.jpg"
+                  alt={s.brand_name || "رقي"}
+                  width={1253}
+                  height={832}
+                  className="h-auto w-full rounded-3xl object-cover"
+                  loading="eager"
+                />
               </div>
-            </div>
+            </figure>
           </div>
         </div>
 
