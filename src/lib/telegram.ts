@@ -14,7 +14,7 @@ export type OrderNotifyLike = {
 const TG_TEXT_MAX = 4096;
 
 function formatCents(cents: number) {
-  return (cents / 100).toLocaleString("ar-EG", {
+  return (cents / 100).toLocaleString("en-US", {
     maximumFractionDigits: 0,
   });
 }
