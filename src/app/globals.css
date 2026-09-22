@@ -79,59 +79,79 @@ body {
 /* Ambient "liquid" backdrop so the glass has something to refract */
 .ambient-bg {
   position: fixed;
-  inset: -40vmax;
+  inset: -50vmax;
   z-index: -1;
   pointer-events: none;
   overflow: hidden;
 }
-.ambient-bg::before,
-.ambient-bg::after {
-  content: "";
+.ambient-bg i {
   position: absolute;
+  display: block;
   border-radius: 50%;
   transform: translateZ(0);
+  will-change: transform;
 }
-.ambient-bg::before {
-  width: 68vmax;
-  height: 68vmax;
-  top: 2vmax;
-  right: -8vmax;
+.ambient-bg i:nth-child(1) {
+  width: 70vmax;
+  height: 70vmax;
+  top: -6vmax;
+  right: -14vmax;
   background: radial-gradient(
-    circle at 32% 30%,
-    rgba(201, 171, 130, 0.42),
-    rgba(201, 171, 130, 0) 66%
+    circle at 38% 34%,
+    rgba(239, 224, 200, 0.6),
+    rgba(201, 171, 130, 0.18) 46%,
+    rgba(201, 171, 130, 0) 68%
   );
-  animation: liquid-drift-a 36s ease-in-out infinite;
+  animation: ambient-drift 64s linear infinite;
 }
-.ambient-bg::after {
-  width: 74vmax;
-  height: 74vmax;
-  bottom: -8vmax;
-  left: -6vmax;
+.ambient-bg i:nth-child(2) {
+  width: 76vmax;
+  height: 76vmax;
+  bottom: -14vmax;
+  left: -16vmax;
   background: radial-gradient(
-    circle at 62% 42%,
-    rgba(150, 164, 184, 0.3),
-    rgba(150, 164, 184, 0) 66%
+    circle at 56% 46%,
+    rgba(214, 220, 228, 0.42),
+    rgba(150, 164, 184, 0.14) 48%,
+    rgba(150, 164, 184, 0) 72%
   );
-  animation: liquid-drift-b 42s ease-in-out infinite;
+  animation: ambient-drift 80s linear infinite reverse;
+}
+.ambient-bg i:nth-child(3) {
+  width: 44vmax;
+  height: 44vmax;
+  top: 34%;
+  left: 42%;
+  background: radial-gradient(
+    circle at 50% 50%,
+    rgba(255, 250, 240, 0.5),
+    rgba(255, 250, 240, 0) 64%
+  );
+  animation: ambient-breathe 56s ease-in-out infinite;
+  opacity: 0.55;
 }
 
-@keyframes liquid-drift-a {
+@keyframes ambient-drift {
   0%,
   100% {
     transform: translate3d(0, 0, 0) scale(1);
   }
-  50% {
-    transform: translate3d(-4vmax, 5vmax, 0) scale(1.08);
+  33% {
+    transform: translate3d(2.2vmax, 2.8vmax, 0) scale(1.04);
+  }
+  66% {
+    transform: translate3d(-2.4vmax, -2.2vmax, 0) scale(0.97);
   }
 }
-@keyframes liquid-drift-b {
+@keyframes ambient-breathe {
   0%,
   100% {
     transform: translate3d(0, 0, 0) scale(1);
+    opacity: 0.4;
   }
   50% {
-    transform: translate3d(5vmax, -4vmax, 0) scale(1.1);
+    transform: translate3d(1.4vmax, -1.6vmax, 0) scale(1.1);
+    opacity: 0.6;
   }
 }
 

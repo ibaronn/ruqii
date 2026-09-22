@@ -1,33 +1,46 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" fill="none">
   <defs>
-    <linearGradient id="v-bronze" x1="80" y1="60" x2="320" y2="360" gradientUnits="userSpaceOnUse">
-      <stop offset="0" stop-color="#c9ab82"/>
-      <stop offset="0.5" stop-color="#a87e4f"/>
-      <stop offset="1" stop-color="#7c5a33"/>
-    </linearGradient>
-    <linearGradient id="v-glass" x1="80" y1="60" x2="320" y2="360" gradientUnits="userSpaceOnUse">
-      <stop offset="0" stop-color="#ffffff" stop-opacity="0.98"/>
-      <stop offset="1" stop-color="#f3efe8" stop-opacity="0.96"/>
-    </linearGradient>
-    <filter id="v-shadow" x="-30%" y="-30%" width="160%" height="160%">
-      <feDropShadow dx="0" dy="10" stdDeviation="22" flood-color="#1e180f" flood-opacity="0.22"/>
-      <feDropShadow dx="0" dy="2" stdDeviation="4" flood-color="#1e180f" flood-opacity="0.16"/>
-    </filter>
+    <g id="half">
+      <path
+        d="M 200 116
+           C 186 108 176 118 170 131
+           C 162 148 156 168 156 191
+           C 156 215 164 240 176 259
+           C 186 275 194 291 199 307
+           C 200 315 200 321 200 328 Z"
+        fill="#0a0a0a"/>
+      <path
+        d="M 152 176
+           C 130 156 106 150 88 158
+           C 76 164 70 176 78 187
+           C 86 197 106 198 122 192
+           C 130 189 138 186 144 184
+           C 149 181 152 180 152 176 Z"
+        fill="#0a0a0a"/>
+      <path
+        d="M 194 114 L 176 96 L 158 80 L 140 66 L 126 54"
+        stroke="#0a0a0a"
+        stroke-width="11"
+        stroke-linecap="round"
+        stroke-linejoin="round"/>
+      <path
+        d="M 158 80 L 164 58"
+        stroke="#0a0a0a"
+        stroke-width="11"
+        stroke-linecap="round"/>
+      <path
+        d="M 140 66 L 146 44"
+        stroke="#0a0a0a"
+        stroke-width="11"
+        stroke-linecap="round"/>
+      <path
+        d="M 158 80 L 148 94"
+        stroke="#0a0a0a"
+        stroke-width="11"
+        stroke-linecap="round"/>
+    </g>
   </defs>
-
-  <rect x="12" y="12" width="376" height="376" rx="92" fill="url(#v-glass)" filter="url(#v-shadow)"/>
-  <rect x="13" y="13" width="374" height="374" rx="91" fill="none" stroke="#ffffff" stroke-opacity="0.9" stroke-width="2"/>
-  <path d="M 24 118 Q 120 18 200 18 Q 300 18 376 116" stroke="#ffffff" stroke-opacity="0.55" stroke-width="9" fill="none" stroke-linecap="round" opacity="0.7"/>
-
-  <!-- Khatam: eight-pointed star -->
-  <g stroke="url(#v-bronze)" stroke-width="7" stroke-linejoin="round" stroke-linecap="round" fill="none">
-    <rect x="126" y="126" width="148" height="148" rx="16"/>
-    <rect x="139" y="139" width="122" height="122" rx="22" transform="rotate(45 200 200)"/>
-  </g>
-
-  <circle cx="200" cy="200" r="30" fill="url(#v-bronze)" opacity="0.92"/>
-  <circle cx="200" cy="200" r="12" fill="#fff6ea"/>
-
-  <path d="M 96 85 q 18 -10 38 -2 q -16 12 -34 4 z" fill="url(#v-bronze)" opacity="0.9"/>
-  <path d="M 304 85 q -18 -10 -38 -2 q 16 12 34 4 z" fill="url(#v-bronze)" opacity="0.9"/>
+  <use href="#half"/>
+  <use href="#half" transform="translate(400,0) scale(-1,1)"/>
+  <ellipse cx="200" cy="323" rx="9" ry="6" fill="#ffffff"/>
 </svg>
