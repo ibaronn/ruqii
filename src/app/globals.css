@@ -83,6 +83,43 @@ body {
   );
 }
 
+/* Site-wide soft background image — high quality, calm, covers any screen */
+.bg-photo {
+  position: fixed;
+  inset: 0;
+  z-index: -4;
+  pointer-events: none;
+  background-image:
+    linear-gradient(
+      rgba(248, 246, 242, 0.82),
+      rgba(244, 241, 236, 0.86) 50%,
+      rgba(246, 243, 238, 0.88)
+    ),
+    url("/bg-site-desktop.jpg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+@media (max-width: 767px) {
+  .bg-photo {
+    background-image:
+      linear-gradient(
+        rgba(248, 246, 242, 0.78),
+        rgba(244, 241, 236, 0.84) 50%,
+        rgba(246, 243, 238, 0.86)
+      ),
+      url("/bg-site-mobile.jpg");
+  }
+}
+
+/* Very large screens: keep cover + gentle zoom-free settle */
+@media (min-width: 2000px) {
+  .bg-photo {
+    background-size: cover;
+    background-position: center 30%;
+  }
+}
+
 /* Ambient gentle light drifting — like soft breeze, very calm */
 .ambient-bg {
   position: fixed;

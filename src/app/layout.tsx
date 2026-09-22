@@ -66,6 +66,7 @@ export default async function RootLayout({
   return (
     <html lang="ar" dir="rtl" className={`${arabic.variable} ${english.variable}`}>
       <body className="flex min-h-screen flex-col font-sans">
+        <div className="bg-photo" aria-hidden="true" />
         <div className="bg-wash" aria-hidden="true" />
         <div className="bg-arabic" aria-hidden="true" />
         <div className="ambient-bg" aria-hidden="true">
