@@ -3,7 +3,7 @@ import { prisma } from "@/lib/prisma";
 import { orderSchema } from "@/lib/validators";
 import { rateLimit } from "@/lib/rate-limit";
 import { generateOrderNumber } from "@/lib/orders";
-import { notifyAdminOnOrder } from "@/lib/whatsapp";
+import { notifyAdminOnOrder } from "@/lib/telegram";
 
 export const runtime = "nodejs";
 
@@ -105,7 +105,7 @@ export async function POST(req: NextRequest) {
     try {
       await notifyAdminOnOrder(result.order);
     } catch {
-      // لا يجب أن يمنع إشعارُ الواتساب تسليمَ نجاح الطلب أبدًا
+      // لا يجب أن يمنع إشعارُ التليجرام تسليمَ نجاح الطلب أبدًا
     }
 
     return NextResponse.json(

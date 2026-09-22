@@ -73,20 +73,6 @@ export default async function RootLayout({
           <i />
           <i />
         </div>
-        <div className="leaves" aria-hidden="true">
-          <span className="leaf" />
-          <span className="leaf" />
-          <span className="leaf" />
-          <span className="leaf" />
-          <span className="leaf" />
-          <span className="leaf" />
-          <span className="leaf" />
-          <span className="leaf" />
-          <span className="leaf" />
-          <span className="leaf" />
-          <span className="leaf" />
-          <span className="leaf" />
-        </div>
         <StoreProvider>
           <StoreScroll />
           <Header

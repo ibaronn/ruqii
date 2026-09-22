@@ -163,48 +163,6 @@ body {
   }
 }
 
-/* Falling leaves — sparse, gentle, top-right → bottom-left */
-.leaves {
-  position: fixed;
-  inset: 0;
-  z-index: -1;
-  pointer-events: none;
-  overflow: hidden;
-}
-.leaf {
-  position: absolute;
-  top: -8%;
-  width: 11px;
-  height: 15px;
-  border-radius: 2px 80% 2px 80%;
-  opacity: 0;
-  will-change: transform, opacity;
-  animation-name: leaf-fall;
-  animation-timing-function: linear;
-  animation-iteration-count: infinite;
-}
-.leaf:nth-child(1) { left: 86%; animation-duration: 22s; animation-delay: 0s;   background: linear-gradient(135deg, #c9ab82, #a87e4f); }
-.leaf:nth-child(2) { left: 72%; animation-duration: 26s; animation-delay: -5s;  background: linear-gradient(135deg, #d8c2a0, #b08a5f); }
-.leaf:nth-child(3) { left: 90%; animation-duration: 19s; animation-delay: -2s;  background: linear-gradient(135deg, #bfa680, #9a7248); }
-.leaf:nth-child(4) { left: 68%; animation-duration: 29s; animation-delay: -11s; background: linear-gradient(135deg, #cbb389, #a87e4f); }
-.leaf:nth-child(5) { left: 81%; animation-duration: 24s; animation-delay: -8s;  background: linear-gradient(135deg, #e3d2b4, #be9c6d); }
-.leaf:nth-child(6) { left: 77%; animation-duration: 31s; animation-delay: -15s; background: linear-gradient(135deg, #c5ab7f, #9e774a); }
-.leaf:nth-child(7) { left: 88%; animation-duration: 21s; animation-delay: -3s;  background: linear-gradient(135deg, #d4bd97, #ac8558); }
-.leaf:nth-child(8) { left: 64%; animation-duration: 27s; animation-delay: -13s; background: linear-gradient(135deg, #cfb58a, #a47a4c); }
-.leaf:nth-child(9) { left: 79%; animation-duration: 23s; animation-delay: -7s;  background: linear-gradient(135deg, #c9ab82, #8c673e); }
-.leaf:nth-child(10) { left: 84%; animation-duration: 18s; animation-delay: -1s; background: linear-gradient(135deg, #e0cba6, #b08a5f); }
-.leaf:nth-child(11) { left: 70%; animation-duration: 28s; animation-delay: -17s; background: linear-gradient(135deg, #c2a878, #967046); }
-.leaf:nth-child(12) { left: 87%; animation-duration: 20s; animation-delay: -6s;  background: linear-gradient(135deg, #d8c2a0, #a87e4f); }
-
-@keyframes leaf-fall {
-  0%   { transform: translate3d(0, -6vh, 0) rotate(0deg); opacity: 0; }
-  6%   { opacity: 0.5; }
-  30%  { opacity: 0.6; }
-  55%  { transform: translate3d(-24vmax, 46vh, 0) rotate(150deg); opacity: 0.55; }
-  75%  { transform: translate3d(-44vmax, 74vh, 0) rotate(290deg); opacity: 0.5; }
-  100% { transform: translate3d(-66vmax, 108vh, 0) rotate(470deg); opacity: 0; }
-}
-
 ::selection {
   background: #0a0a0a;
   color: #ffffff;
