@@ -67,6 +67,7 @@ export default async function RootLayout({
     <html lang="ar" dir="rtl" className={`${arabic.variable} ${english.variable}`}>
       <body className="flex min-h-screen flex-col font-sans">
         <div className="ambient-bg" aria-hidden="true" />
+        <div className="bg-arabic" aria-hidden="true" />
         <StoreProvider>
           <StoreScroll />
           <Header

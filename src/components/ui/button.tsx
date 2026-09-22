@@ -15,7 +15,7 @@ export interface ButtonProps
 
 const variantClasses: Record<Variant, string> = {
   solid:
-    "glass-dark hover:-translate-y-px hover:shadow-[0_18px_36px_-16px_rgba(0,0,0,0.6)] active:translate-y-0 active:scale-[0.98]",
+    "btn-3d glass-dark hover:-translate-y-px hover:shadow-[0_18px_36px_-16px_rgba(0,0,0,0.6)] active:translate-y-0 active:scale-[0.98]",
   outline:
     "glass-soft text-ink hover:-translate-y-px hover:bg-ink hover:text-white hover:shadow-[0_16px_34px_-16px_rgba(0,0,0,0.5)] active:translate-y-0 active:scale-[0.98]",
   ghost: "bg-transparent text-ink hover:bg-white/60 active:scale-[0.98]",
