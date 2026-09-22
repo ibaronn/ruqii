@@ -9,6 +9,11 @@ export function StoreScroll() {
   const [showTop, setShowTop] = useState(false);
 
   useEffect(() => {
+    if ("scrollRestoration" in window.history) {
+      window.history.scrollRestoration = "manual";
+    }
+    window.scrollTo({ top: 0, left: 0 });
+
     let raf = 0;
     const onScroll = () => {
       cancelAnimationFrame(raf);
