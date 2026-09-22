@@ -42,44 +42,52 @@ html {
 
 body {
   @apply text-ink font-sans antialiased;
-  background-color: #f6f4ef;
-  background-image: linear-gradient(
-    rgba(251, 250, 248, 0.92),
-    rgba(243, 241, 237, 0.92)
-  );
+  background-color: transparent;
   text-rendering: optimizeLegibility;
   font-feature-settings: "ss01" on;
   overflow-x: hidden;
 }
 
-/* Calm Arabic geometric lattice, very faint, over the ambient glass */
+/* Calm Arabic geometric lattice, very faint */
 .bg-arabic {
   position: fixed;
   inset: 0;
-  z-index: -1;
+  z-index: -2;
   pointer-events: none;
-  opacity: 0.6;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='56' height='56' viewBox='0 0 56 56'%3E%3Cg fill='none' stroke='%23a87e4f' stroke-opacity='0.07' stroke-width='1'%3E%3Cpath d='M28 6l6 16 16 6-16 6-6 16-6-16-16-6 16-6z'/%3E%3Cpath d='M0 28h56M28 0v56'/%3E%3Ccircle cx='28' cy='28' r='3'/%3E%3C/g%3E%3C/svg%3E");
   background-size: 56px 56px;
   mask-image: radial-gradient(
     120% 90% at 50% 10%,
-    rgba(0, 0, 0, 0.9),
-    rgba(0, 0, 0, 0.25) 62%,
+    rgba(0, 0, 0, 0.85),
+    rgba(0, 0, 0, 0.2) 60%,
     transparent 100%
   );
   -webkit-mask-image: radial-gradient(
     120% 90% at 50% 10%,
-    rgba(0, 0, 0, 0.9),
-    rgba(0, 0, 0, 0.25) 62%,
+    rgba(0, 0, 0, 0.85),
+    rgba(0, 0, 0, 0.2) 60%,
     transparent 100%
   );
-  will-change: transform;
 }
 
-/* Ambient "liquid" backdrop so the glass has something to refract */
+/* Calm base wash so pages aren't stark white */
+.bg-wash {
+  position: fixed;
+  inset: 0;
+  z-index: -3;
+  pointer-events: none;
+  background-image: linear-gradient(
+    180deg,
+    #fbfaf8 0%,
+    #f3f1ed 46%,
+    #f6f4f1 100%
+  );
+}
+
+/* Ambient gentle light drifting — like soft breeze, very calm */
 .ambient-bg {
   position: fixed;
-  inset: -50vmax;
+  inset: -55vmax;
   z-index: -1;
   pointer-events: none;
   overflow: hidden;
@@ -92,43 +100,43 @@ body {
   will-change: transform;
 }
 .ambient-bg i:nth-child(1) {
-  width: 70vmax;
-  height: 70vmax;
-  top: -6vmax;
-  right: -14vmax;
+  width: 78vmax;
+  height: 78vmax;
+  top: 4vmax;
+  right: -20vmax;
   background: radial-gradient(
     circle at 38% 34%,
-    rgba(239, 224, 200, 0.6),
-    rgba(201, 171, 130, 0.18) 46%,
-    rgba(201, 171, 130, 0) 68%
+    rgba(239, 224, 200, 0.55),
+    rgba(224, 205, 178, 0.16) 48%,
+    rgba(224, 205, 178, 0) 70%
   );
-  animation: ambient-drift 64s linear infinite;
+  animation: ambient-drift 70s linear infinite;
 }
 .ambient-bg i:nth-child(2) {
-  width: 76vmax;
-  height: 76vmax;
-  bottom: -14vmax;
-  left: -16vmax;
+  width: 84vmax;
+  height: 84vmax;
+  bottom: -18vmax;
+  left: -24vmax;
   background: radial-gradient(
     circle at 56% 46%,
-    rgba(214, 220, 228, 0.42),
-    rgba(150, 164, 184, 0.14) 48%,
-    rgba(150, 164, 184, 0) 72%
+    rgba(214, 224, 232, 0.32),
+    rgba(170, 190, 208, 0.1) 50%,
+    rgba(170, 190, 208, 0) 72%
   );
-  animation: ambient-drift 80s linear infinite reverse;
+  animation: ambient-drift 90s linear infinite reverse;
 }
 .ambient-bg i:nth-child(3) {
-  width: 44vmax;
-  height: 44vmax;
-  top: 34%;
-  left: 42%;
+  width: 42vmax;
+  height: 42vmax;
+  top: 30%;
+  left: 38%;
   background: radial-gradient(
     circle at 50% 50%,
-    rgba(255, 250, 240, 0.5),
-    rgba(255, 250, 240, 0) 64%
+    rgba(255, 251, 244, 0.5),
+    rgba(255, 251, 244, 0) 62%
   );
-  animation: ambient-breathe 56s ease-in-out infinite;
-  opacity: 0.55;
+  animation: ambient-breathe 64s ease-in-out infinite;
+  opacity: 0.5;
 }
 
 @keyframes ambient-drift {
@@ -137,22 +145,64 @@ body {
     transform: translate3d(0, 0, 0) scale(1);
   }
   33% {
-    transform: translate3d(2.2vmax, 2.8vmax, 0) scale(1.04);
+    transform: translate3d(1.6vmax, 2vmax, 0) scale(1.03);
   }
   66% {
-    transform: translate3d(-2.4vmax, -2.2vmax, 0) scale(0.97);
+    transform: translate3d(-1.8vmax, -1.5vmax, 0) scale(0.98);
   }
 }
 @keyframes ambient-breathe {
   0%,
   100% {
     transform: translate3d(0, 0, 0) scale(1);
-    opacity: 0.4;
+    opacity: 0.35;
   }
   50% {
-    transform: translate3d(1.4vmax, -1.6vmax, 0) scale(1.1);
-    opacity: 0.6;
+    transform: translate3d(1vmax, -1.2vmax, 0) scale(1.08);
+    opacity: 0.55;
   }
+}
+
+/* Falling leaves — sparse, gentle, top-right → bottom-left */
+.leaves {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  overflow: hidden;
+}
+.leaf {
+  position: absolute;
+  top: -8%;
+  width: 11px;
+  height: 15px;
+  border-radius: 2px 80% 2px 80%;
+  opacity: 0;
+  will-change: transform, opacity;
+  animation-name: leaf-fall;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+}
+.leaf:nth-child(1) { left: 86%; animation-duration: 22s; animation-delay: 0s;   background: linear-gradient(135deg, #c9ab82, #a87e4f); }
+.leaf:nth-child(2) { left: 72%; animation-duration: 26s; animation-delay: -5s;  background: linear-gradient(135deg, #d8c2a0, #b08a5f); }
+.leaf:nth-child(3) { left: 90%; animation-duration: 19s; animation-delay: -2s;  background: linear-gradient(135deg, #bfa680, #9a7248); }
+.leaf:nth-child(4) { left: 68%; animation-duration: 29s; animation-delay: -11s; background: linear-gradient(135deg, #cbb389, #a87e4f); }
+.leaf:nth-child(5) { left: 81%; animation-duration: 24s; animation-delay: -8s;  background: linear-gradient(135deg, #e3d2b4, #be9c6d); }
+.leaf:nth-child(6) { left: 77%; animation-duration: 31s; animation-delay: -15s; background: linear-gradient(135deg, #c5ab7f, #9e774a); }
+.leaf:nth-child(7) { left: 88%; animation-duration: 21s; animation-delay: -3s;  background: linear-gradient(135deg, #d4bd97, #ac8558); }
+.leaf:nth-child(8) { left: 64%; animation-duration: 27s; animation-delay: -13s; background: linear-gradient(135deg, #cfb58a, #a47a4c); }
+.leaf:nth-child(9) { left: 79%; animation-duration: 23s; animation-delay: -7s;  background: linear-gradient(135deg, #c9ab82, #8c673e); }
+.leaf:nth-child(10) { left: 84%; animation-duration: 18s; animation-delay: -1s; background: linear-gradient(135deg, #e0cba6, #b08a5f); }
+.leaf:nth-child(11) { left: 70%; animation-duration: 28s; animation-delay: -17s; background: linear-gradient(135deg, #c2a878, #967046); }
+.leaf:nth-child(12) { left: 87%; animation-duration: 20s; animation-delay: -6s;  background: linear-gradient(135deg, #d8c2a0, #a87e4f); }
+
+@keyframes leaf-fall {
+  0%   { transform: translate3d(0, -6vh, 0) rotate(0deg); opacity: 0; }
+  6%   { opacity: 0.5; }
+  30%  { opacity: 0.6; }
+  55%  { transform: translate3d(-24vmax, 46vh, 0) rotate(150deg); opacity: 0.55; }
+  75%  { transform: translate3d(-44vmax, 74vh, 0) rotate(290deg); opacity: 0.5; }
+  100% { transform: translate3d(-66vmax, 108vh, 0) rotate(470deg); opacity: 0; }
 }
 
 ::selection {

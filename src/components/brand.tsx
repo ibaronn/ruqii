@@ -2,7 +2,7 @@ import { cn } from "@/lib/utils";
 
 export function BrandMark({
   className,
-  source = "/logo.svg",
+  source = "/logo.png",
 }: {
   className?: string;
   source?: string;
